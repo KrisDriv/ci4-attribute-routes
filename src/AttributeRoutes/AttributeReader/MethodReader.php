@@ -14,13 +14,13 @@ final class MethodReader
      *
      * @return Route[]
      */
-    public function getRoutes(string $class): array
+    public function getRoutes(string $class, array $parents = []): array
     {
         $reflection = new ReflectionClass($class);
 
         $routes = [];
 
-        foreach ($reflection->getMethods() as $method) {
+        foreach ([...$reflection->getMethods()] as $method) {
             $attributes = $method->getAttributes(Route::class);
 
             if ($attributes === []) {
@@ -31,7 +31,7 @@ final class MethodReader
                 /** @var Route $route */
                 $route = $attribute->newInstance();
                 $route->setControllerMethod(
-                    $method->getDeclaringClass()->getName() . '::' . $method->getName()
+                    $reflection->getName() . '::' . $method->getName()
                 );
 
                 $routes[] = $route;

@@ -45,6 +45,12 @@ final class ControllerFinder
                         /** @var class-string $classname */
                         $classname = $classnameOrEmpty;
 
+                        $reflectionClass = new \ReflectionClass($classname);
+
+                        if($reflectionClass->isAbstract()) {
+                            continue;
+                        }
+                        
                         $classes[] = $classname;
                     }
                 }

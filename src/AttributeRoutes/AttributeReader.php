@@ -29,14 +29,17 @@ final class AttributeReader
      */
     public function getRoutes(string $class)
     {
+        $parents = class_parents($class);
+
         $groupRoutes     = $this->getGroup($class);
         $resourceRoutes  = $this->getResource($class);
         $presenterRoutes = $this->getPresenter($class);
 
         $routes = array_merge($groupRoutes, $resourceRoutes, $presenterRoutes);
+        
         if ($routes !== []) {
             return $routes;
-        }
+        };
 
         return $this->methodReader->getRoutes($class);
     }
