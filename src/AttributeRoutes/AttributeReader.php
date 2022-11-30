@@ -29,8 +29,6 @@ final class AttributeReader
      */
     public function getRoutes(string $class)
     {
-        $parents = class_parents($class);
-
         $groupRoutes     = $this->getGroup($class);
         $resourceRoutes  = $this->getResource($class);
         $presenterRoutes = $this->getPresenter($class);
